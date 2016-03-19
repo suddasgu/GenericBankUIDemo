@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project basedir="." default="build" name="GenericBankUIApp">
+    <property environment="env"/>
+    <property name="src.Dir" value="src"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+	<property name="reports.test" value="reports" />
+	<property name="test.dir" value="testsrc" />
+    <condition property="ARCHIVE_DIR" value="${env.ARCHIVE_DIR}" else=".">
+        <isset property="env.ARCHIVE_DIR" />
+    </condition>
+	<property name="warname" value= "genericBankUIApp.war"/>
+    <path id="classpathDir">
+        <pathelement location="bin"/>
+         <fileset dir="WebContent/WEB-INF/lib"> 
+        	<include name="*.jar"/> 
+    	</fileset>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+		<delete file="${ARCHIVE_DIR}/${warname}" />		
+    </target>
+    <target name="build" depends="build-project,build-war,unit-test-1"/>
+    <target name="cleanall" depends="clean"/>
+    <target name="build-project" depends="clean,init">
+    	<copy todir="${ARCHIVE_DIR}">
+	      <fileset file="manifest.yml" />
+	    </copy>
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" source="${source}" target="${target}"
+		includeantruntime="false">
+            <src path="src"/>
+            <src path="testsrc"/>
+            <classpath refid="classpathDir"/>
+        </javac>
+    </target>
+ 
+   <target name="build-war" depends="build-project">
+	  <war destfile="${ARCHIVE_DIR}/${warname}" webxml="WebContent/WEB-INF/web.xml">
+	  	<webinf dir="WebContent/WEB-INF">
+	  		<include name="resources"/>
+	    </webinf>
+	  	<fileset dir="WebContent">
+	  		<include name="**/*"/>
+	    </fileset>
+	  	<classes dir="bin"/>
+	  </war>
+   </target>
+   
+   <target name="unit-test-1">
+
+    <mkdir dir="${reports.test}"/>
+
+    <junit printsummary="yes" haltonfailure="yes">
+      <classpath>
+        <pathelement location="${project.class.path}"/>
+        <pathelement location="bin"/>
+        <pathelement path="${java.class.path}"/>
+        <pathelement location="WebContent/WEB-INF/lib/junit-4.1.jar"/>
+      	<pathelement location="WebContent/WEB-INF/lib/commons-httpclient-3.1-rc1.jar"/>
+      	<pathelement location="WebContent/WEB-INF/lib/gson-2.2.4.jar"/>
+      	<pathelement location="WebContent/WEB-INF/lib/commons-codec-1.9.jar"/>
+      	<pathelement location="WebContent/WEB-INF/lib/commons-logging-1.1.3.jar"/>
+      </classpath>
+
+      <!--<formatter type="plain"/>
+      <formatter type="xml"/>-->
+    	
+		<formatter type="brief" usefile="false" />
+
+
+   	
+      <batchtest fork="yes" todir="testreports">
+        <fileset dir="${test.dir}">
+          <include name="**/*Test*.java"/>
+        </fileset>
+      </batchtest>
+
+    </junit>
+	</target>
+	
+	<target name="unit-test-2" depends="build-project,build-war"> 
+	 	 
+
+	   <junit printsummary="yes" haltonfailure="yes">
+	      <classpath>
+	        <pathelement location="${project.class.path}"/>
+	        <pathelement location="bin"/>
+	        <pathelement path="${java.class.path}"/>
+<!--	        <pathelement location="WebContent/WEB-INF/lib/junit-4.1.jar"/>
+	      	<pathelement location="WebContent/WEB-INF/lib/commons-httpclient-3.1-rc1.jar"/>
+	      	<pathelement location="WebContent/WEB-INF/lib/gson-2.2.4.jar"/>
+	      	<pathelement location="WebContent/WEB-INF/lib/commons-codec-1.9.jar"/>
+	      	<pathelement location="WebContent/WEB-INF/lib/commons-logging-1.1.3.jar"/> -->
+	      	<fileset dir="WebContent/WEB-INF/lib"> 
+	      	        	<include name="*.jar"/> 
+	      	</fileset>
+	      </classpath>
+
+	        
+			<formatter type="brief" usefile="false" />
+
+	   	
+	      <batchtest fork="yes" todir="testreports">
+<!--	      	 <fileset dir="WebContent/WEB-INF/lib"> 
+	      	        	<include name="*.jar"/> 
+	      	 </fileset> -->
+	        <fileset dir="${src.Dir}">
+	          <include name="**/Test_FirstSuiteRunner.java"/>
+	        </fileset>
+	      </batchtest>
+
+	    </junit>
+		</target>
+
+</project>
