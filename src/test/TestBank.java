@@ -34,7 +34,7 @@ public class TestBank {
 		//driver.findElement(By.xpath("html/body/div[2]/div/div/div/div[2]/div/div/form/div[5]/div[1]/button")).click();
 		
 		System.out.println(driver.getTitle());
-
+// code updated with the Assert statement
 		
 		String Title1=driver.findElement(By.xpath("html/body/div[2]/div/div/div/div[2]/div/div/form/div[5]/div[1]/button")).getText();
 		System.out.println("Title is " + Title1);
