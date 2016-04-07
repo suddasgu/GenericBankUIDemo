@@ -38,7 +38,12 @@ public class DBConnection {
 			Set<Entry<String, JsonElement>> entries = obj.entrySet();
 			// Look for the VCAP key that holds the sql db information
 			for (Entry<String, JsonElement> eachEntry : entries) {				
+				/*//connected to SQL Db 
 				if (eachEntry.getKey().equals("sqldb")) {
+				*/
+				//Connected to Dash DB dashDB
+				if (eachEntry.getKey().equals("dashDB")) {
+								
 					dbEntry = eachEntry;
 					break;
 				}
@@ -63,14 +68,27 @@ public class DBConnection {
 			// Read an external datasource to be defined in server.xml
 			try {
 				Context ctx = new InitialContext();
+				
+				/*//connected to SQL Db 
 				DataSource ds = (DataSource)ctx.lookup("jdbc/sqldb");
+				*/
+				//connected to DASH Db 
+				DataSource ds = (DataSource)ctx.lookup("jdbc/dashDB");
+				
 				connection = ds.getConnection();
 				System.out.println("Got connection from JNDI datasource");
 			}
 			catch (NamingException ex) {
-				user = "fejqhjep";
+				
+				//connected to SQL Db 
+				/*user = "fejqhjep";
 				password = "qar9thytivol";
-				url ="jdbc:db2://75.126.155.142:50000/I1459502";
+				url ="jdbc:db2://75.126.155.142:50000/I1459502";*/
+				
+				//connected to DASH Db 
+				user = "dash6011";
+				password = "VNXDPeNBMkdH";
+				url ="db2://dash6011:VNXDPeNBMkdH@dashdb-entry-yp-dal09-07.services.dal.bluemix.net:50000/BLUDB";
 				connection = DriverManager.getConnection(url, user, password);
 				System.out.println("Got connection from fixed url");
 			}

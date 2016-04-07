@@ -21,7 +21,12 @@ public boolean chkLogin(String userName, String passWord) {
 			con = DBConnection.returnSqlConnection();
 			System.out.println("inside chkLogin");
 
+			/*//SQL DB 
 			String qry="SELECT * FROM ARPANROY_IN_IBM_COM.USER WHERE username=? and password=?";
+			*/
+			//dash db 
+			String qry="SELECT * FROM dash6011.USER WHERE username=? and password=?";
+			
 			pst= (PreparedStatement) con.prepareStatement(qry);
 			pst.setString(1, userName);
 			pst.setString(2, passWord);
