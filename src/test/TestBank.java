@@ -28,7 +28,7 @@ public class TestBank {
 		WebDriver driver = new PhantomJSDriver(DesireCaps);
 		System.out.println("*****Driver Executed in linux......\n");	
 	 			/*WebDriver driver = new FirefoxDriver();*/
-		driver.get("http://genericbankui.mybluemix.net/");
+		driver.get("http://genericbankuiv5.mybluemix.net/");
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 		System.out.println(driver.getTitle());
 		//driver.findElement(By.xpath("html/body/div[2]/div/div/div/div[2]/div/div/form/div[5]/div[1]/button")).click();
