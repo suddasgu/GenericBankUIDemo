@@ -1,9 +1,0 @@
-applications:
-- path: 
-  disk_quota: 1024M
-  host: genericbankuiv6
-  name: GenericBankUIv6
-  path: genericBankUIApp.war
-  domain: mybluemix.net
-  instances: 1
-  memory: 512M
