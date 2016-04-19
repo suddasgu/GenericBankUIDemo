@@ -1,4 +1,5 @@
-
+applications:
+- path: 
   disk_quota: 1024M
   host: genericbankuiv6
   name: GenericBankUIv6
