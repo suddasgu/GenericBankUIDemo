@@ -2,8 +2,8 @@ applications:
 - services:
   - SQL Database-GenericBank
   disk_quota: 1024M
-  host: genericbankuiv5
-  name: GenericBankUIv5
+  host: genericbankuiv6
+  name: GenericBankUIv6
   path: genericBankUIApp.war
   domain: mybluemix.net
   instances: 1
