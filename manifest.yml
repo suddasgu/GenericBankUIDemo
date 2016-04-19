@@ -1,6 +1,4 @@
-applications:
-- services:
-  - SQL Database-GenericBank
+
   disk_quota: 1024M
   host: genericbankuiv6
   name: GenericBankUIv6
