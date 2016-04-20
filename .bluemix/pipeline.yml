@@ -23,10 +23,10 @@ name: Build
   - name: Deploy
     type: deployer
     target:
-      region_id: ibm:yp:us-south
-      organization: arpanroy@in.ibm.com
-      space: genericbank
-      application: BDSv1Sandbox
+            url: '${CF_TARGET_URL}'
+          organization: '${CF_ORGANIZATION}'
+          space: '${CF_SPACE}'
+          application: '${CF_APP}'
     script: |
       #!/bin/bash
       cf push "${CF_APP}"
